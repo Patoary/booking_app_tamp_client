@@ -1,63 +1,33 @@
+import useFetch from "../../hooks/useFetch";
 import "./propertyList.css";
 
 const PropertyList = () => {
+  const{data, loading, error, reFetch} = useFetch("http://localhost:4000/hotel/countByType")
+  const images =[
+    "src/assets/hotel.jpg",
+    "src/assets/apartments.jpg",
+    "src/assets/resort.jpg",
+    "src/assets/villas.jpg",
+    "src/assets/cabins.jpg"
+  ]
   return (
     <div className="pList">
+      {loading? ("loading"):(
+      <>
+      {data && images.map((img, i)=>(
       <div className="pListItem">
         <img
-          src="src/assets/hotel.jpg"
+          src={img}
           alt=""
           className="pListImg"
         />
         <div className="pListTitles">
           <h1>Hotels</h1>
-          <h2>233 hotels</h2>
+          <h2>{data[i]?.count} {data[i]?.type}</h2>
         </div>
       </div>
-      <div className="pListItem">
-        <img
-          src="src/assets/appartments.jpg"
-          alt=""
-          className="pListImg"
-        />
-        <div className="pListTitles">
-          <h1>Apartments</h1>
-          <h2>2331 hotels</h2>
-        </div>
-      </div>
-      <div className="pListItem">
-        <img
-          src="src/assets/resort.jpg"
-          alt=""
-          className="pListImg"
-        />
-        <div className="pListTitles">
-          <h1>Resorts</h1>
-          <h2>2331 hotels</h2>
-        </div>
-      </div>
-      <div className="pListItem">
-        <img
-          src="src/assets/villas.jpg"
-          alt=""
-          className="pListImg"
-        />
-        <div className="pListTitles">
-          <h1>Villas</h1>
-          <h2>2331 hotels</h2>
-        </div>
-      </div>
-      <div className="pListItem">
-        <img
-          src="src/assets/cabins.jpg"
-          alt=""
-          className="pListImg"
-        />
-        <div className="pListTitles">
-          <h1>Cabins</h1>
-          <h2>2331 hotels</h2>
-        </div>
-      </div>
+      ))}
+      </>)}
     </div>
   );
 };
