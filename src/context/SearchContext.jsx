@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { createContext, useReducer } from "react";
 
 // create a initial state
 const INITIAL_STATE = {
@@ -12,7 +12,7 @@ const INITIAL_STATE = {
 };
 
 // create a context
-export const SearchContext = createContext(INITIAL_STATE);
+const SearchContext = createContext(INITIAL_STATE);
 
 // create a reducer function to to our action
 const SearchReducer = (state, action) => {
@@ -28,7 +28,7 @@ const SearchReducer = (state, action) => {
 
 // lets use our reducer on our context
 
-export const SearchContextProvider = ({ children }) => {
+const SearchContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(SearchReducer, INITIAL_STATE);
 
   // return our provider
@@ -45,6 +45,8 @@ export const SearchContextProvider = ({ children }) => {
       {children}
     </SearchContext.Provider>
   );
-};
+};  
 
+export {SearchContext,SearchContextProvider};
 // we can use this context every where when we need to get/set above state.
+// ⇨ to use this context we should to wrap our entire application.(from our index/main.js)
